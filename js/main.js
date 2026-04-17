@@ -130,3 +130,30 @@
     if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); scrollToSection(Math.min(currentSection + 1, sections.length - 1)); }
     if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); scrollToSection(Math.max(currentSection - 1, 0)); }
   });
+
+  // STICKY CTA BUTTON
+  const stickyCta = document.getElementById('stickyCta');
+  if (stickyCta) {
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const heroSection = sections[0];
+      const heroHeight = heroSection ? heroSection.offsetHeight : 0;
+      
+      // Show sticky button after scrolling past hero section
+      if (scrollTop > heroHeight * 0.5) {
+        stickyCta.classList.remove('hidden');
+      } else {
+        stickyCta.classList.add('hidden');
+      }
+    });
+
+    // Add hover effect to sticky button
+    stickyCta.addEventListener('mouseenter', () => { 
+      cursor.classList.add('hovering'); 
+      ring.classList.add('hovering'); 
+    });
+    stickyCta.addEventListener('mouseleave', () => { 
+      cursor.classList.remove('hovering'); 
+      ring.classList.remove('hovering'); 
+    });
+  }
