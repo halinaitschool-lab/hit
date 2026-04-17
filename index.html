@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HIT LAB</title>
     <script>
-        // Language detection and routing
+        // Language detection and routing for GitHub Pages
         (function() {
             const lang = navigator.language.split('-')[0];
             const supportedLangs = {'pl': 'pl', 'en': 'en'};
             const targetLang = supportedLangs[lang] || 'ua';
-            window.location.replace('/' + targetLang + '/');
+            
+            // Get the repository name (for GitHub Pages subpath)
+            const currentPath = window.location.pathname;
+            const isGitHubPages = currentPath.includes('/hit/');
+            const baseUrl = isGitHubPages ? '/hit' : '';
+            
+            window.location.replace(baseUrl + '/' + targetLang + '/');
         })();
     </script>
     <style>
