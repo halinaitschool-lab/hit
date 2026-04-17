@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strony sprzedażowe dla ekspertek | HIT LAB</title>
+<meta name="description" content="Landing page dla ekspertek, który przesyła Twoją energię, brzmi Twoim głosem i delikatnie prowadzi klientkę do zakupu. Pierwsza wersja w 4 dni.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap&subset=latin-ext" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../styles.css">
+<script src="../js/main.js" defer></script>
+</head>
+
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar"></div>
+
+<nav>
+  <a href="/pl/" class="nav-logo">HIT LAB ↗</a>
+  <div class="lang-switcher">
+    <a href="/ua/" class="lang-link">UA</a>
+    <a href="/pl/" class="lang-link active">PL</a>
+    <a href="/en/" class="lang-link">EN</a>
+  </div>
+  <a href="#kontakt" class="nav-cta">Zarezerwuj konsultację →</a>
+</nav>
+
+<div class="section-counter" id="sectionCounter"></div>
+
+<div class="scroll-arrow" id="scrollArrow">
+  <button class="arrow-btn" id="arrowDown" aria-label="Następna sekcja">↓</button>
+</div>
+
+<!-- SECTION 1: HERO -->
+<section class="section hero" id="sec-0">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="hero-inner" style="position:relative;z-index:1;">
+    <div class="hero-kicker">Landing page dla ekspertek</div>
+    <h1 class="hero-h1">
+      Strona, która<br>
+      <span class="accent">mówi</span><br>
+      <span class="under">Twoim głosem</span>
+    </h1>
+    <p class="hero-sub">Nie szablon.  
+      Nie konstruktor.  
+      Nie jeszcze jedna «ładna strona».
+
+      A strona, która przesyła Twoją energię
+      i pomaga klientce powiedzieć: <strong>«chcę pracować właśnie z Tobą»</strong></p>
+    <div class="hero-ctas">
+      <a href="#kontakt" class="btn-primary">Chcę stronę w moim stylu <span>→</span></a>
+      <a href="#oferta" class="btn-secondary">Jak pracuję</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: PAIN POINTS -->
+<section class="section pain" id="sec-1">
+  <div class="pain-inner">
+    <p class="pain-label observe">Może się w tym rozpoznajesz</p>
+    <div class="pain-items">
+      <div class="pain-item observe" style="transition-delay:0.1s">
+        <span class="pain-num">01</span>
+        <div class="pain-text">
+          <h3>Jesteś silna w swojej dziedzinie.</h3>
+          <p>A strona albo <span class="highlight">nie istnieje,</span> albo wciąż <span class="highlight">nie pokazuje</span> dlaczego klientka <strong>powinna Ci zaufać</strong>.</p>
+        </div>
+      </div>
+      <div class="pain-item observe" style="transition-delay:0.2s">
+        <span class="pain-num">02</span>
+        <div class="pain-text">
+          <h3>Próbowałaś sama.</h3>
+          <p>Ale Wix, AI i szablony <span class="highlight">nie oddają Ciebie takiej, jaka jesteś.</span> A teksty brzmiały <span class="highlight">cudzymi </span>słowami.</p>
+        </div>
+      </div>
+      <div class="pain-item observe" style="transition-delay:0.3s">
+        <span class="pain-num">03</span>
+        <div class="pain-text">
+          <h3>Instagram to za mało</h3>
+          <p>Bo media społeczne dają uwagę, <span class="highlight">ale niekoniecznie</span> zaufanie.</p>
+        </div>
+      </div>
+      <div class="pain-item observe" style="transition-delay:0.4s">
+        <span class="pain-num">04</span>
+        <div class="pain-text">
+          <h3>Nie potrzebujesz po prostu strony.</h3>
+          <p>Potrzebujesz uczucia: <span class="highlight">"to naprawdę ja"</span>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: HOW I WORK -->
+<section class="section process" id="sec-2">
+  <div class="process-inner">
+    <span class="section-tag">Tworzę stronę tak, jakby rodziła się z Twoich słów</span>
+    <h2 class="section-h2">4 dni<br> pierwsza wersja.</h2>
+    <div class="process-grid">
+      <div class="process-card observe card-accent" data-step="1" style="transition-delay:0s">
+        <span class="card-icon"><i class="fas fa-magnifying-glass"></i></span>
+        <div class="card-day">Dzień 1</div>
+        <div class="card-title">Głębokie wywiad</div>
+        <p class="card-desc">60-minutowa rozmowa. Poznaję Ciebie, Twoją klientkę i to, co naprawdę sprzedajesz. Nie słucham tylko o usłudze. Słucham, jak mówisz, poznaję Twój styl.</p>
+      </div>
+      <div class="process-card observe" data-step="2" style="transition-delay:0.1s">
+        <span class="card-icon"><i class="fas fa-pen-to-square"></i></span>
+        <div class="card-day">Dzień 2</div>
+        <div class="card-title">Teksty i struktura</div>
+        <p class="card-desc">Piszę teksty tak, aby Twoje klientki poznały Twój sposób rozmowy i swoją potrzebę. Struktura opiera się na psychologii polskiej klientki.</p>
+      </div>
+      <div class="process-card observe" data-step="3" style="transition-delay:0.2s">
+        <span class="card-icon"><i class="fas fa-bolt"></i></span>
+        <div class="card-day">Dzień 3</div>
+        <div class="card-title">Kodowanie i design</div>
+        <p class="card-desc">Czysty HTML/CSS/JS. Strona ładuje się poniżej 1 sekundy i wygląda tak jak marka ekspertki.</p>
+      </div>
+      <div class="process-card observe" data-step="4" style="transition-delay:0.3s">
+        <span class="card-icon"><i class="fas fa-rocket"></i></span>
+        <div class="card-day">Dzień 4</div>
+        <div class="card-title">Pixel, SEO i uruchomienie</div>
+        <p class="card-desc">Instalacja Meta Pixela, podstawowy SEO, testy mobilne. Strona w trybie online. Uruchamiam ją gotową do sprzedaży.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: ABOUT ME -->
+<section class="section about" id="sec-3">
+  <div class="about-inner">
+    <div class="about-left">
+      <span class="section-tag about-tag">Kim jestem</span>
+      <h2 class="about-h2">Nie tylko tworzę strony czy jestem web developerem.</h2>
+      <p class="about-p">Tworzę landing page'i dla kobiet, <strong>które sprzedają wiedzę, doświadczenie i transformację</strong>. Łączę techniczny perfekcionizm z psychologią sprzedaży — bo dobra strona to nie tylko design.</p>
+      <p class="about-p">Pracuję wyłącznie z ekspertkami, które sprzedają wiedzę Polakom. Znam Twoją klientkę. Rozumiem, co ją przekonuje, a co zraża. To nie hipoteza — to <strong>lata obserwacji i testów</strong>.</p>
+      <p class="about-p">Piszę lekki kod.</p>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Dni do pierwszej wersji</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">98</div>
+          <div class="stat-label">Google PageSpeed Score</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1</div>
+          <div class="stat-label">Miesiąc wsparcia w cenie</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Ciężkich rozszerzeń czy pluginów</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-right">
+      <div class="skill-pill observe" style="transition-delay:0s"><span class="pill-icon"><i class="fas fa-brain"></i></span> Psychologia Twojej klientki <span class="pill-check">✓</span></div>
+      <div class="skill-pill observe" style="transition-delay:0.1s"><span class="pill-icon"><i class="fas fa-bolt"></i></span> Ręczny HTML/CSS/JS <span class="pill-check">✓</span></div>
+      <div class="skill-pill observe" style="transition-delay:0.2s"><span class="pill-icon"><i class="fas fa-pen-fancy"></i></span> Copywriting sprzedażowy PL <span class="pill-check">✓</span></div>
+      <div class="skill-pill observe" style="transition-delay:0.3s"><span class="pill-icon"><i class="fas fa-mobile"></i></span> Meta Pixel + zdarzenia <span class="pill-check">✓</span></div>
+      <div class="skill-pill observe" style="transition-delay:0.4s"><span class="pill-icon"><i class="fas fa-magnifying-glass"></i></span> On-page SEO + meta <span class="pill-check">✓</span></div>
+      <div class="skill-pill observe" style="transition-delay:0.5s"><span class="pill-icon"><i class="fas fa-shield"></i></span> Miesiąc wsparcia gratis <span class="pill-check">✓</span></div>
+      <div class="skill-pill observe" style="transition-delay:0.6s"><span class="pill-icon"><i class="fas fa-gauge-high"></i></span> PageSpeed 95–99/100 <span class="pill-check">✓</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: OFFER -->
+<section class="section offer" id="sec-4 oferta">
+  <div class="offer-inner" id="oferta">
+    <span class="section-tag offer-tag">Oferta</span>
+    <h2 class="offer-h2">Wszystko, czego potrzebujesz.</h2>
+    <p class="offer-sub">Jeden pakiet. Zero niespodzianek.</p>
+    <div class="offer-card-big observe">
+      <div class="offer-name">Strona gotowa do sprzedaży™</div>
+      <div class="offer-price">od 2 990 zł <span>netto · jednorazowo</span></div>
+      <div class="offer-features">
+        <div class="offer-feature">Indywidualny design</div>
+        <div class="offer-feature">Czysty kod HTML/CSS/JS</div>
+        <div class="offer-feature">Teksty sprzedażowe po polsku</div>
+        <div class="offer-feature">Meta Pixel + zdarzenia</div>
+        <div class="offer-feature">Podstawowy SEO</div>
+        <div class="offer-feature">Responsywność (mobile first)</div>
+        <div class="offer-feature">Hosting i domena — pomoc w konfiguracji</div>
+        <div class="offer-feature">30 dni wsparcia po wdrożeniu</div>
+        <div class="offer-feature">Szybkość gwarantowana</div>
+        <div class="offer-feature">Pierwsza wersja w 4 dni robocze</div>
+      </div>
+      <a href="#kontakt" class="offer-cta">Zarezerwuj konsultację →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: RESULTS / TESTIMONIALS -->
+<section class="section results" id="sec-5">
+  <div class="results-inner">
+    <span class="section-tag">Rezultaty</span>
+    <h2 class="section-h2">Strony,<br>które działają.</h2>
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item">Pierwsza sprzedaż w 48h od uruchomienia <span class="ticker-dot">★</span></span>
+        <span class="ticker-item">Konwersja 8,4% na stronie kursu <span class="ticker-dot">★</span></span>
+        <span class="ticker-item">PageSpeed 99/100 mobilna <span class="ticker-dot">★</span></span>
+        <span class="ticker-item">Zapisy 300 osób w 3 dni <span class="ticker-dot">★</span></span>
+        <span class="ticker-item">Klientka wróciła po drugą stronę w miesiąc <span class="ticker-dot">★</span></span>
+        <span class="ticker-item">Pierwsza sprzedaż w 48h od uruchomienia <span class="ticker-dot">★</span></span>
+        <span class="ticker-item">Konwersja 8,4% na stronie kursu <span class="ticker-dot">★</span></span>
+        <span class="ticker-item">PageSpeed 99/100 mobilna <span class="ticker-dot">★</span></span>
+        <span class="ticker-item">Zapisy 300 osób w 3 dni <span class="ticker-dot">★</span></span>
+        <span class="ticker-item">Klientka wróciła po drugą stronę w miesiąc <span class="ticker-dot">★</span></span>
+      </div>
+    </div>
+    <div class="results-grid">
+      <div class="result-card observe" style="transition-delay:0s">
+        <p class="result-quote">W ciągu 48 godzin od uruchomienia miałam pierwszą sprzedaż kursu. Nie wierzyłam, że strona może tyle zmienić.</p>
+        <div class="result-author">
+          <div class="result-avatar av1"><i class="fas fa-butterfly"></i></div>
+          <div>
+            <div class="result-name">Marta K.</div>
+            <div class="result-role">Coach mindfulness, kurs online</div>
+          </div>
+        </div>
+      </div>
+      <div class="result-card observe" style="transition-delay:0.15s">
+        <p class="result-quote">Wcześniej miałam Wix i 0 zapytań tygodniowo. Teraz mam 3–5 leadów bez reklam. Sama strona robi robotę.</p>
+        <div class="result-author">
+          <div class="result-avatar av2"><i class="fas fa-leaf"></i></div>
+          <div>
+            <div class="result-name">Agnieszka W.</div>
+            <div class="result-role">Dietetyczka, mentoringowa</div>
+          </div>
+        </div>
+      </div>
+      <div class="result-card observe" style="transition-delay:0.3s">
+        <p class="result-quote">Miałam gotową stronę w czwartek rano. W piątek zrobiłam launch. Sprzedałam 14 miejsc w weekend.</p>
+        <div class="result-author">
+          <div class="result-avatar av3"><i class="fas fa-bolt"></i></div>
+          <div>
+            <div class="result-name">Justyna R.</div>
+            <div class="result-role">Trenerka biznesu dla kobiet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: JOURNEY — FROM PAIN TO CALL -->
+<section class="section journey" id="sec-6">
+  <div class="journey-inner">
+    <span class="section-tag">Droga klientki</span>
+    <h2 class="section-h2">Od bólu<br>do pierwszej sprzedaży.</h2>
+    <div class="journey-flow">
+      <div class="journey-step observe" style="transition-delay:0s">
+        <div class="j-circle j-pain"><i class="fas fa-face-flushed"></i></div>
+        <div class="j-content">
+          <span class="j-tag pain-tag">Problem</span>
+          <h3>Masz świetny produkt. Strona tego nie pokazuje.</h3>
+          <p>Szablon Canvy albo Wix brzmi jak każda inna. Klientka wchodzi i... wychodzi. Nie kupuje, bo nie ufa.</p>
+        </div>
+      </div>
+      <div class="journey-step observe" style="transition-delay:0.15s">
+        <div class="j-circle j-discovery"><i class="fas fa-binoculars"></i></div>
+        <div class="j-content">
+          <span class="j-tag pain-tag">Próby</span>
+          <h3>Szukasz rozwiązania. Trafiasz na obietnice.</h3>
+          <p>Freelancer za 800 zł zniknął. Kurs z WordPressem zajął tydzień. Efekt — strona, której się wstydzisz.</p>
+        </div>
+      </div>
+      <div class="journey-step observe" style="transition-delay:0.3s">
+        <div class="j-circle j-work"><i class="fas fa-comments"></i></div>
+        <div class="j-content">
+          <span class="j-tag action-tag">Decyzja</span>
+          <h3>Piszesz do mnie. Umawiamy się na rozmowę.</h3>
+          <p>60 minut. Bez ofert i prezentacji. Tylko pytania o Ciebie i Twoją klientkę. Żebym zrozumiała co sprzedajesz.</p>
+        </div>
+      </div>
+      <div class="journey-step observe" style="transition-delay:0.45s">
+        <div class="j-circle j-work"><i class="fas fa-bolt"></i></div>
+        <div class="j-content">
+          <span class="j-tag work-tag">Praca</span>
+          <h3>Pracuję. Ty robisz swoje.</h3>
+          <p>Dzień 1 strategia, dzień 2 teksty, dzień 3 kod, dzień 4 live. Regularnie informuję o postępach. Zero znikania.</p>
+        </div>
+      </div>
+      <div class="journey-step observe" style="transition-delay:0.6s">
+        <div class="j-circle j-result"><i class="fas fa-rocket"></i></div>
+        <div class="j-content">
+          <span class="j-tag result-tag">Efekt</span>
+          <h3>Masz stronę. Zaczynasz sprzedawać.</h3>
+          <p>Pixel działa. SEO działa. Strona ładuje się w <1s. Przez miesiąc jestem z Tobą jeśli coś chcesz zmienić.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: FAQ -->
+<section class="section faq" id="sec-7">
+  <div class="faq-inner">
+    <span class="section-tag faq-tag">FAQ</span>
+    <h2 class="faq-h2">Masz pytania.<br>Mam odpowiedzi.</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Naprawdę 4 dni? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Tak — od rozmowy do pliku live. Warunek: Ty też odpowiadasz szybko. Przygotowania z Twojej strony zajmują max 2h. Reszta — moja robota.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Czy mogę sama edytować stronę? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Uczę Cię jak zmieniać teksty i obrazki bez dotyku kodu. Dla głębszych zmian — masz mnie przez 30 dni za darmo. Potem ustalamy stawkę za opiekę.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Dlaczego ręczny kod, a nie WordPress? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">WordPress z wtyczkami waży 3-8MB i ładuje się 4-8 sekund. Mój kod waży 80-200KB i ładuje się poniżej 1 sekundy. Google nagradza szybkość. Klientki zostają. Konwersja rośnie.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Co jeśli nie mam gotowych treści? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Piszę teksty sprzedażowe ja — to część pakietu. Potrzebuję od Ciebie tylko odpowiedzi na moje pytania z wywiadu. Wszystko inne biorę na siebie.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Dla jakich branż tworzysz strony? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Specjalizuję się w ekspertkach sprzedających wiedzę: coachki, trenerki, dietetyczki, psycholożki, konsultantki, kursy online, mentoring, warsztaty. Jeśli sprzedajesz swoją ekspertyzę — trafiłaś pod właściwy adres.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9: GAMIFIED COUNTER -->
+<section class="section counter-section" id="sec-8">
+  <div class="counter-inner">
+    <h2 class="counter-h2">Razem robimy wynik.</h2>
+    <p class="counter-sub">Liczby mówią same za siebie.</p>
+    <div class="counters-row">
+      <div class="count-box">
+        <span class="count-num" data-target="4">0</span>
+        <div class="count-label">dni do gotowej strony</div>
+      </div>
+      <div class="count-box">
+        <span class="count-num" data-target="98">0</span>
+        <div class="count-label">średni PageSpeed Score</div>
+      </div>
+      <div class="count-box">
+        <span class="count-num" data-target="30">0</span>
+        <div class="count-label">dni darmowej opieki</div>
+      </div>
+    </div>
+    <div class="xp-label">Twoja marka — poziom sprzedażowy</div>
+    <div class="xp-bar-wrap">
+      <div class="xp-bar" id="xpBar"></div>
+    </div>
+    <div class="xp-label">Brakuje tylko strony 🚀</div>
+    <a href="#kontakt" class="offer-cta" style="display:inline-flex;margin-top:1rem;">Zacznijmy razem →</a>
+  </div>
+</section>
+
+<!-- SECTION 10: CTA FINAL -->
+<section class="section cta-final" id="sec-9 kontakt">
+  <div class="cta-inner" id="kontakt">
+    <div class="cta-badge">🟢 Aktualnie przyjmuję zlecenia</div>
+    <h2 class="cta-h2">Gotowa na stronę,<br>która <em>sprzedaje</em>?</h2>
+    <p class="cta-p">Wybierz datę i umów się na konsultację</p>
+    <div class="cta-form">
+      <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-30min"></div>
+    </div> 
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 HIT LAB · strony dla ekspertek · <a href="mailto:halina.it.school@gmail.com">halina.it.school@gmail.com</a></p>
+</footer>
+
+<a href="#kontakt" class="sticky-cta hidden" id="stickyCta">
+  Zarezerwuj konsultację →
+</a>
+
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", "30min", {origin:"https://app.cal.com"});
+
+  Cal.ns["30min"]("inline", {
+    elementOrSelector:"#my-cal-inline-30min",
+    config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"},
+    calLink: "halina-it-school-qwzxut/30min",
+  });
+
+  Cal.ns["30min"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#FF5C35"},"dark":{"cal-brand":"#FFF5E6"}},"hideEventTypeDetails":false,"layout":"month_view"});
+  </script>
+</body>
+</html>

@@ -83,6 +83,10 @@
 
   /* NAV */
   nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     padding: 1.2rem 3rem;
     display: flex;
@@ -116,6 +120,51 @@
   .nav-cta:hover {
     background: var(--ink);
     transform: scale(1.05);
+  }
+
+  /* LANGUAGE SWITCHER */
+  .lang-switcher {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .lang-link {
+    font-family: var(--title-font);
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--warm-gray);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.6rem;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  .lang-link:hover,
+  .lang-link.active {
+    color: var(--coral);
+    border-bottom-color: var(--coral);
+  }
+
+  @media (max-width: 768px) {
+    .nav-cta {
+      display: none;
+    }
+
+    .lang-switcher {
+      position: static;
+      transform: none;
+      gap: 0.5rem;
+      margin: 0 1rem;
+    }
+
+    .lang-link {
+      font-size: 0.65rem;
+      padding: 0.3rem 0.4rem;
+    }
   }
 
   /* PROGRESS BAR */
@@ -227,10 +276,6 @@
     color: var(--ink);
     opacity: 0;
     animation: fadeUp 0.7s 0.5s forwards;
-  }
-
-  .hero-kicker::before {
-    content: '⚡';
   }
 
   .hero-h1 {

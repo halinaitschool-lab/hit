@@ -1,0 +1,23 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Redirect to language-specific folders
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/(ua|pl|en)/ 
+  RewriteCond %{REQUEST_URI} !^/router.js
+  RewriteCond %{REQUEST_URI} !^/styles.css
+  RewriteCond %{REQUEST_URI} !^/js/
+  RewriteCond %{REQUEST_URI} !^/images/
+
+  # Redirect based on Accept-Language header
+  RewriteCond %{HTTP:Accept-Language} ^pl [NC]
+  RewriteRule ^(.*)$ /pl/$1 [L]
+
+  RewriteCond %{HTTP:Accept-Language} ^en [NC]
+  RewriteRule ^(.*)$ /en/$1 [L]
+
+  # Default to Ukrainian
+  RewriteRule ^(.*)$ /ua/$1 [L]
+</IfModule>

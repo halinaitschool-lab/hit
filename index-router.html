@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIT LAB</title>
+    <script>
+        // Простая маршрутизация на основе языка браузера
+        (function() {
+            const lang = navigator.language.split('-')[0];
+            const supportedLangs = {'pl': 'pl', 'en': 'en'};
+            const targetLang = supportedLangs[lang] || 'ua';
+            window.location.replace('/' + targetLang + '/');
+        })();
+    </script>
+</head>
+<body style="display:flex; align-items:center; justify-content:center; height:100vh; font-family:Arial, sans-serif; background:#FFF5E6;">
+    <h1 style="color:#1A1208; text-align:center;">
+        Redirecting to your language...<br>
+        Перенаправлення на вашу мову...
+    </h1>
+</body>
+</html>
