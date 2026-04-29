@@ -1136,6 +1136,15 @@
     color: var(--warm-gray);
   }
 
+  .case-study-link {
+    background-color: var(--coral);
+  }
+
+  .case-study-link span{
+    color: var(--white);
+    font-size: 1rem;
+  }
+
   .av1 {
     background: var(--lemon);
     background-image: url(./images/veronika_res.jpeg);
