@@ -1085,7 +1085,6 @@
 
   .result-link-cta {
     display: inline-flex;
-    margin-top: 1rem;
     font-family: var(--title-font);
     font-size: 0.85rem;
     font-weight: 700;
@@ -1117,8 +1116,8 @@
   }
 
   .result-avatar {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1139,10 +1138,18 @@
 
   .av1 {
     background: var(--lemon);
+    background-image: url(./images/veronika_res.jpeg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .av2 {
     background: var(--mint);
+    background-image: url(./images/anna_li.jpeg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .av3 {
