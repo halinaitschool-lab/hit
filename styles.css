@@ -364,6 +364,7 @@
     align-items: center;
     gap: 0.3rem;
     cursor: pointer;
+    pointer-events: none;
   }
 
   .arrow-btn {
@@ -379,6 +380,7 @@
     transition: all 0.25s;
     font-size: 1.3rem;
     color: var(--ink);
+    pointer-events: auto;
   }
 
   .arrow-btn:hover {
@@ -410,7 +412,6 @@
   }
 
   .hero-kicker {
-    width: 100%;
     background: var(--lemon);
     border-radius: 100px;
     padding: 0.4rem 1.2rem;
