@@ -106,6 +106,260 @@
     });
   });
 
+  // Cookie consent (simple CMP-lite)
+  const CONSENT_KEY = 'hit_cookie_consent_v1';
+  const CONSENT_DEFAULT = { necessary: true, analytics: false, marketing: false };
+
+  function getLang() {
+    const htmlLang = document.documentElement.getAttribute('lang') || 'en';
+    if (htmlLang.startsWith('pl')) return 'pl';
+    if (htmlLang.startsWith('uk') || htmlLang.startsWith('ua')) return 'ua';
+    return 'en';
+  }
+
+  const I18N = {
+    pl: {
+      title: 'Cookies',
+      text: 'Używamy plików cookies, aby strona działała poprawnie oraz (opcjonalnie) do analityki i marketingu. Możesz zmienić ustawienia w każdej chwili.',
+      acceptAll: 'Akceptuj wszystkie',
+      reject: 'Odrzuć',
+      manage: 'Ustawienia',
+      modalTitle: 'Ustawienia cookies',
+      necessary: 'Niezbędne',
+      necessaryDesc: 'Wymagane do działania strony (zawsze włączone).',
+      analytics: 'Analityczne',
+      analyticsDesc: 'Pomagają zrozumieć, jak korzystasz ze strony (włączymy później, jeśli dodasz analitykę).',
+      marketing: 'Marketingowe',
+      marketingDesc: 'Służą do pomiaru i reklam (np. Pixel — dodamy później).',
+      save: 'Zapisz',
+      close: 'Zamknij',
+      policyPrivacy: 'Polityka prywatności',
+      policyCookies: 'Polityka cookies',
+      manageLink: 'Zarządzaj cookies',
+    },
+    en: {
+      title: 'Cookies',
+      text: 'We use cookies to make the site work properly and (optionally) for analytics and marketing. You can change settings anytime.',
+      acceptAll: 'Accept all',
+      reject: 'Reject',
+      manage: 'Settings',
+      modalTitle: 'Cookie settings',
+      necessary: 'Necessary',
+      necessaryDesc: 'Required for the site to work (always on).',
+      analytics: 'Analytics',
+      analyticsDesc: 'Helps us understand usage (will be used later if analytics is added).',
+      marketing: 'Marketing',
+      marketingDesc: 'Used for measurement/ads (e.g. Pixel — can be added later).',
+      save: 'Save',
+      close: 'Close',
+      policyPrivacy: 'Privacy policy',
+      policyCookies: 'Cookie policy',
+      manageLink: 'Manage cookies',
+    },
+    ua: {
+      title: 'Cookies',
+      text: 'Ми використовуємо cookies, щоб сайт працював коректно, а також (за бажанням) для аналітики й маркетингу. Налаштування можна змінити будь-коли.',
+      acceptAll: 'Прийняти все',
+      reject: 'Відхилити',
+      manage: 'Налаштування',
+      modalTitle: 'Налаштування cookies',
+      necessary: 'Необхідні',
+      necessaryDesc: 'Потрібні для роботи сайту (завжди увімкнені).',
+      analytics: 'Аналітика',
+      analyticsDesc: 'Допомагає зрозуміти використання (увімкнемо пізніше, якщо додамо аналітику).',
+      marketing: 'Маркетинг',
+      marketingDesc: 'Для вимірювання та реклами (наприклад Pixel — додамо пізніше).',
+      save: 'Зберегти',
+      close: 'Закрити',
+      policyPrivacy: 'Політика конфіденційності',
+      policyCookies: 'Політика cookies',
+      manageLink: 'Керувати cookies',
+    },
+  };
+
+  function loadConsent() {
+    try {
+      const raw = localStorage.getItem(CONSENT_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return { ...CONSENT_DEFAULT, ...parsed };
+    } catch {
+      return null;
+    }
+  }
+
+  function saveConsent(consent) {
+    const payload = {
+      ...CONSENT_DEFAULT,
+      ...consent,
+      necessary: true,
+      updatedAt: new Date().toISOString(),
+    };
+    localStorage.setItem(CONSENT_KEY, JSON.stringify(payload));
+    return payload;
+  }
+
+  function ensureCookieUI() {
+    if (document.getElementById('cookieBanner')) return;
+    const lang = getLang();
+    const t = I18N[lang] || I18N.en;
+
+    const banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.id = 'cookieBanner';
+    banner.innerHTML = `
+      <div class="cookie-banner-inner">
+        <div>
+          <div class="cookie-title">${t.title}</div>
+          <div class="cookie-text">${t.text}</div>
+        </div>
+        <div class="cookie-actions">
+          <button class="cookie-btn" type="button" data-cookie-action="reject">${t.reject}</button>
+          <button class="cookie-btn" type="button" data-cookie-action="manage">${t.manage}</button>
+          <button class="cookie-btn primary" type="button" data-cookie-action="accept">${t.acceptAll}</button>
+        </div>
+      </div>
+    `;
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'cookie-backdrop';
+    backdrop.id = 'cookieBackdrop';
+
+    const modal = document.createElement('div');
+    modal.className = 'cookie-modal';
+    modal.id = 'cookieModal';
+    modal.innerHTML = `
+      <div class="cookie-modal-head">
+        <div>
+          <h3>${t.modalTitle}</h3>
+          <div class="cookie-text" style="margin-top: .35rem;">
+            <a href="./polityka-prywatnosci.html">${t.policyPrivacy}</a> ·
+            <a href="./polityka-cookies.html">${t.policyCookies}</a>
+          </div>
+        </div>
+        <button class="cookie-close" type="button" aria-label="${t.close}">×</button>
+      </div>
+      <div class="cookie-options">
+        <div class="cookie-option">
+          <div>
+            <div class="cookie-option-title">${t.necessary}</div>
+            <div class="cookie-option-desc">${t.necessaryDesc}</div>
+          </div>
+          <div class="cookie-switch">
+            <input type="checkbox" checked disabled />
+          </div>
+        </div>
+        <div class="cookie-option">
+          <div>
+            <div class="cookie-option-title">${t.analytics}</div>
+            <div class="cookie-option-desc">${t.analyticsDesc}</div>
+          </div>
+          <label class="cookie-switch">
+            <input id="cookieAnalytics" type="checkbox" />
+          </label>
+        </div>
+        <div class="cookie-option">
+          <div>
+            <div class="cookie-option-title">${t.marketing}</div>
+            <div class="cookie-option-desc">${t.marketingDesc}</div>
+          </div>
+          <label class="cookie-switch">
+            <input id="cookieMarketing" type="checkbox" />
+          </label>
+        </div>
+      </div>
+      <div class="cookie-modal-actions">
+        <button class="cookie-btn" type="button" data-cookie-action="reject">${t.reject}</button>
+        <button class="cookie-btn primary" type="button" data-cookie-action="save">${t.save}</button>
+      </div>
+    `;
+
+    document.body.appendChild(banner);
+    document.body.appendChild(backdrop);
+    document.body.appendChild(modal);
+
+    function openModal() {
+      backdrop.classList.add('open');
+      modal.classList.add('open');
+      const consent = loadConsent() || CONSENT_DEFAULT;
+      const a = document.getElementById('cookieAnalytics');
+      const m = document.getElementById('cookieMarketing');
+      if (a) a.checked = !!consent.analytics;
+      if (m) m.checked = !!consent.marketing;
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      modal.classList.remove('open');
+    }
+
+    function hideBanner() {
+      banner.remove();
+    }
+
+    function setAll(val) {
+      saveConsent({ analytics: val, marketing: val });
+      closeModal();
+      hideBanner();
+    }
+
+    function rejectAll() {
+      saveConsent({ analytics: false, marketing: false });
+      closeModal();
+      hideBanner();
+    }
+
+    function saveFromModal() {
+      const a = document.getElementById('cookieAnalytics');
+      const m = document.getElementById('cookieMarketing');
+      saveConsent({ analytics: !!(a && a.checked), marketing: !!(m && m.checked) });
+      closeModal();
+      hideBanner();
+    }
+
+    banner.querySelectorAll('[data-cookie-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.getAttribute('data-cookie-action');
+        if (action === 'accept') setAll(true);
+        if (action === 'reject') rejectAll();
+        if (action === 'manage') openModal();
+      });
+    });
+
+    modal.querySelectorAll('[data-cookie-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.getAttribute('data-cookie-action');
+        if (action === 'reject') rejectAll();
+        if (action === 'save') saveFromModal();
+      });
+    });
+
+    modal.querySelector('.cookie-close')?.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+
+    // External link: open settings
+    document.querySelectorAll('[data-open-cookie-settings]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    });
+  }
+
+  // Show banner only if user has not decided yet.
+  if (!loadConsent()) {
+    ensureCookieUI();
+  } else {
+    // Still allow opening settings from footer links
+    document.querySelectorAll('[data-open-cookie-settings]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        ensureCookieUI();
+        document.querySelector('[data-cookie-action=\"manage\"]')?.dispatchEvent(new Event('click'));
+      });
+    });
+  }
+
   // FAQ
   function toggleFaq(el) {
     const item = el.parentElement;
