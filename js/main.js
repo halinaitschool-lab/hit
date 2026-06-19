@@ -96,6 +96,16 @@
 
   document.querySelectorAll('.observe').forEach(el => observer.observe(el));
 
+  // Remember language choice (for Cloudflare Accept-Language routing)
+  document.querySelectorAll('.lang-switcher a.lang-link').forEach(a => {
+    a.addEventListener('click', () => {
+      const label = (a.textContent || '').trim().toUpperCase();
+      const lang = label === 'UA' ? 'ua' : label === 'PL' ? 'pl' : label === 'EN' ? 'en' : null;
+      if (!lang) return;
+      document.cookie = `hit_lang=${lang}; Path=/; Max-Age=${60 * 60 * 24 * 365}`;
+    });
+  });
+
   // FAQ
   function toggleFaq(el) {
     const item = el.parentElement;
