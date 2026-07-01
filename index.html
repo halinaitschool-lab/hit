@@ -1,22 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HIT LAB</title>
+    <title>HIT LAB – Sales pages for experts</title>
+    <meta name="description" content="HIT LAB creates sales landing pages for experts. Choose your language: Polish, English, or Ukrainian.">
+    <meta name="robots" content="noindex,follow">
+    <meta name="theme-color" content="#FF5C35">
+    <link rel="icon" type="image/png" href="/images/icon.png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+    <link rel="canonical" href="https://halinait.com/en/">
+    <link rel="alternate" hreflang="pl" href="https://halinait.com/pl/">
+    <link rel="alternate" hreflang="uk" href="https://halinait.com/ua/">
+    <link rel="alternate" hreflang="en" href="https://halinait.com/en/">
+    <link rel="alternate" hreflang="x-default" href="https://halinait.com/en/">
     <script>
-        // Language detection and routing for GitHub Pages
-        (function() {
-            const lang = navigator.language.split('-')[0];
-            const supportedLangs = {'pl': 'pl', 'en': 'en'};
-            const targetLang = supportedLangs[lang] || 'ua';
-            
-            // Get the repository name (for GitHub Pages subpath)
-            const currentPath = window.location.pathname;
-            const isGitHubPages = currentPath.includes('/hit/');
-            const baseUrl = isGitHubPages ? '/hit' : '';
-            
-            window.location.replace(baseUrl + '/' + targetLang + '/');
+        (function () {
+            var cookieMatch = document.cookie.match(/(?:^|;\s*)hit_lang=(ua|pl|en)\b/);
+            if (cookieMatch) {
+                window.location.replace('/' + cookieMatch[1] + '/');
+                return;
+            }
+
+            var lang = (navigator.language || 'en').split('-')[0].toLowerCase();
+            var target = 'en';
+
+            if (lang === 'uk' || lang === 'ua') {
+                target = 'ua';
+            } else if (lang === 'pl') {
+                target = 'pl';
+            }
+
+            window.location.replace('/' + target + '/');
         })();
     </script>
     <style>
@@ -33,6 +48,8 @@
             color: #1A1208;
             text-align: center;
             line-height: 1.6;
+            font-size: 1.25rem;
+            padding: 0 1rem;
         }
     </style>
 </head>

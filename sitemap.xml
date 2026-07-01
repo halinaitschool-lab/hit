@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://halinait.com/pl/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/en/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/ua/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/pl/case-study-vektor-kariery.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/case-study-vektor-kariery.html"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/case-study-vektor-kariery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/case-study-vektor-kariery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/case-study-vektor-kariery.html"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/en/case-study-vektor-kariery.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/case-study-vektor-kariery.html"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/case-study-vektor-kariery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/case-study-vektor-kariery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/case-study-vektor-kariery.html"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/ua/case-study-vektor-kariery.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/case-study-vektor-kariery.html"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/case-study-vektor-kariery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/case-study-vektor-kariery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/case-study-vektor-kariery.html"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/pl/polityka-prywatnosci.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/polityka-prywatnosci.html"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/polityka-prywatnosci.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/polityka-prywatnosci.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/polityka-prywatnosci.html"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/en/polityka-prywatnosci.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/polityka-prywatnosci.html"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/polityka-prywatnosci.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/polityka-prywatnosci.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/polityka-prywatnosci.html"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/ua/polityka-prywatnosci.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/polityka-prywatnosci.html"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/polityka-prywatnosci.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/polityka-prywatnosci.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/polityka-prywatnosci.html"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/pl/polityka-cookies.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/polityka-cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/polityka-cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/polityka-cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/polityka-cookies.html"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/en/polityka-cookies.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/polityka-cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/polityka-cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/polityka-cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/polityka-cookies.html"/>
+  </url>
+  <url>
+    <loc>https://halinait.com/ua/polityka-cookies.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://halinait.com/pl/polityka-cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://halinait.com/ua/polityka-cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halinait.com/en/polityka-cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://halinait.com/en/polityka-cookies.html"/>
+  </url>
+</urlset>
