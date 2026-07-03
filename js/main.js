@@ -1,114 +1,6 @@
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animateCursor() {
-    if (!cursor || !ring) return;
-    rx += (mx - rx) * 0.15;
-    ry += (my - ry) * 0.15;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-  document.querySelectorAll('a,button,.faq-q,.process-card,.result-card,.skill-pill,.sticky-cta').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      if (!cursor || !ring) return;
-      cursor.classList.add('hovering');
-      ring.classList.add('hovering');
-    });
-    el.addEventListener('mouseleave', () => {
-      if (!cursor || !ring) return;
-      cursor.classList.remove('hovering');
-      ring.classList.remove('hovering');
-    });
-  });
-
-  // SECTIONS & PROGRESS
-  const sections = document.querySelectorAll('.section');
-  const counter = document.getElementById('sectionCounter');
-  const progressBar = document.getElementById('progressBar');
-  const arrowDown = document.getElementById('arrowDown');
-  let currentSection = 0;
-
-  // Build dots
-  if (counter) {
-    sections.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.className = 'dot' + (i === 0 ? ' active' : '');
-      dot.onclick = () => scrollToSection(i);
-      counter.appendChild(dot);
-    });
-  }
-
-  function updateDots(idx) {
-    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-  }
-
-  function scrollToSection(idx) {
-    if (idx < 0 || idx >= sections.length) return;
-    currentSection = idx;
-    sections[idx].scrollIntoView({ behavior: 'smooth' });
-    updateDots(idx);
-  }
-
-  if (arrowDown) {
-    arrowDown.addEventListener('click', () => {
-      scrollToSection(Math.min(currentSection + 1, sections.length - 1));
-    });
-  }
-
-  // Update on scroll
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    if (progressBar) {
-      progressBar.style.width = (scrollTop / docH * 100) + '%';
-    }
-
-    sections.forEach((sec, i) => {
-      const rect = sec.getBoundingClientRect();
-      if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-        currentSection = i;
-        updateDots(i);
-        // XP bar trigger
-        if (i === 8) triggerXP();
-        // Counter trigger
-        if (i === 8) triggerCounters();
-      }
-    });
-
-    if (arrowDown) {
-      arrowDown.style.opacity = currentSection >= sections.length - 1 ? '0' : '1';
-    }
-  });
-
-  // OBSERVE ANIMATIONS
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.observe').forEach(el => observer.observe(el));
-
-  // Remember language choice (for Cloudflare Accept-Language routing)
-  document.querySelectorAll('.lang-switcher a.lang-link').forEach(a => {
-    a.addEventListener('click', () => {
-      const label = (a.textContent || '').trim().toUpperCase();
-      const lang = label === 'UA' ? 'ua' : label === 'PL' ? 'pl' : label === 'EN' ? 'en' : null;
-      if (!lang) return;
-      document.cookie = `hit_lang=${lang}; Path=/; Max-Age=${60 * 60 * 24 * 365}`;
-    });
-  });
-
-  // Cookie consent (simple CMP-lite)
-  const CONSENT_KEY = 'hit_cookie_consent_v1';
-  const CONSENT_DEFAULT = { necessary: true, analytics: false, marketing: false };
+(function () {
+  const SITE_URL = document.body.dataset.siteUrl || window.location.href;
+  const WP_BENCHMARK_S = 8.6;
 
   function getLang() {
     const htmlLang = document.documentElement.getAttribute('lang') || 'en';
@@ -116,6 +8,336 @@
     if (htmlLang.startsWith('uk') || htmlLang.startsWith('ua')) return 'ua';
     return 'en';
   }
+
+  const TYPE_PHRASES = {
+    en: [
+      'hand-coded, not templated.',
+      '80–200KB. under 1 second.',
+      'built to sound like you.',
+      'no plugins. no bloat.',
+    ],
+    pl: [
+      'kod ręczny, nie szablon.',
+      '80–200KB. poniżej 1 sekundy.',
+      'brzmi jak Ty.',
+      'bez wtyczek. bez balastu.',
+    ],
+    ua: [
+      'ручний код, не шаблон.',
+      '80–200KB. менше ніж 1 секунда.',
+      'звучить як ти.',
+      'без плагінів. без баласту.',
+    ],
+  };
+
+  const header = document.getElementById('header');
+  if (header) {
+    window.addEventListener(
+      'scroll',
+      () => header.classList.toggle('scrolled', window.scrollY > 30),
+      { passive: true }
+    );
+  }
+
+  const burger = document.getElementById('burger');
+  const panel = document.getElementById('mobilePanel');
+  if (burger && panel) {
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      panel.classList.toggle('open');
+    });
+    panel.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        burger.classList.remove('open');
+        panel.classList.remove('open');
+      });
+    });
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  revealEls.forEach((el) => io.observe(el));
+
+  const railIo = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) e.target.classList.add('in');
+      });
+    },
+    { threshold: 0.5 }
+  );
+  document.querySelectorAll('.rail-node').forEach((el) => railIo.observe(el));
+
+  document.querySelectorAll('.faq-item').forEach((item) => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    if (!q || !a) return;
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach((other) => {
+        if (other !== item) {
+          other.classList.remove('open');
+          const otherA = other.querySelector('.faq-a');
+          if (otherA) otherA.style.maxHeight = null;
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      a.style.maxHeight = !isOpen ? `${a.scrollHeight}px` : null;
+    });
+  });
+
+  const isTouch = matchMedia('(hover:none), (pointer:coarse)').matches;
+  if (!isTouch) {
+    document.body.classList.add('cursor-active');
+    const dot = document.getElementById('cursorDot');
+    const label = document.getElementById('cursorLabel');
+
+    window.addEventListener('mousemove', (e) => {
+      if (dot) {
+        dot.style.left = `${e.clientX}px`;
+        dot.style.top = `${e.clientY}px`;
+      }
+      if (label) {
+        label.style.left = `${e.clientX}px`;
+        label.style.top = `${e.clientY - 34}px`;
+      }
+      document.body.classList.add('cursor-ready');
+    });
+
+    document.querySelectorAll('[data-cursor]').forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        if (!label) return;
+        label.textContent = el.getAttribute('data-cursor');
+        label.classList.add('show');
+      });
+      el.addEventListener('mouseleave', () => label?.classList.remove('show'));
+    });
+
+    document.querySelectorAll('[data-magnetic]').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const relX = e.clientX - (r.left + r.width / 2);
+        const relY = e.clientY - (r.top + r.height / 2);
+        el.style.transform = `translate(${relX * 0.25}px, ${relY * 0.35}px)`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = 'translate(0,0)';
+      });
+    });
+  }
+
+  const heroTitle = document.getElementById('heroTitle');
+  if (heroTitle && !isTouch) {
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        const r = heroTitle.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+        const radius = 420;
+        if (dist < radius) {
+          const t = 1 - dist / radius;
+          heroTitle.style.fontVariationSettings = `"opsz" ${40 + t * 20}, "wght" ${500 + t * 180}`;
+        } else {
+          heroTitle.style.fontVariationSettings = '"opsz" 40, "wght" 500';
+        }
+      },
+      { passive: true }
+    );
+  }
+
+  const typeText = document.getElementById('typeText');
+  if (typeText) {
+    const phrases = TYPE_PHRASES[getLang()] || TYPE_PHRASES.en;
+    let pIdx = 0;
+    let cIdx = 0;
+    let deleting = false;
+    function typeLoop() {
+      const current = phrases[pIdx];
+      if (!deleting) {
+        cIdx += 1;
+        typeText.textContent = current.slice(0, cIdx);
+        if (cIdx === current.length) {
+          deleting = true;
+          setTimeout(typeLoop, 1400);
+          return;
+        }
+      } else {
+        cIdx -= 1;
+        typeText.textContent = current.slice(0, cIdx);
+        if (cIdx === 0) {
+          deleting = false;
+          pIdx = (pIdx + 1) % phrases.length;
+        }
+      }
+      setTimeout(typeLoop, deleting ? 30 : 55);
+    }
+    typeLoop();
+  }
+
+  function wireVoicePlayer(btn, audioEl, cardEl) {
+    if (!btn || !audioEl) return;
+    btn.addEventListener('click', () => {
+      if (!audioEl.src) {
+        btn.textContent = '—';
+        btn.title = btn.dataset.emptyTitle || 'Add audio to enable playback';
+        return;
+      }
+      if (audioEl.paused) {
+        audioEl.play();
+        btn.textContent = '❚❚';
+        cardEl?.classList.add('playing');
+      } else {
+        audioEl.pause();
+        btn.textContent = '▶';
+        cardEl?.classList.remove('playing');
+      }
+    });
+    audioEl.addEventListener('ended', () => {
+      btn.textContent = '▶';
+      cardEl?.classList.remove('playing');
+    });
+  }
+
+  wireVoicePlayer(
+    document.getElementById('voicePlay'),
+    document.getElementById('voiceAudio'),
+    document.getElementById('voiceCard')
+  );
+  document.querySelectorAll('.testi-voice-btn').forEach((btn) => {
+    const key = btn.getAttribute('data-audio');
+    wireVoicePlayer(btn, document.getElementById(`audio-${key}`), null);
+  });
+
+  function reportLoadTime() {
+    const trustLoad = document.getElementById('trustLoad');
+    const chip = document.getElementById('loadChip');
+    if (!trustLoad || !chip) return;
+
+    let ms;
+    const nav = performance.getEntriesByType('navigation')[0];
+    if (nav) ms = nav.loadEventEnd - nav.startTime;
+    else ms = performance.timing.loadEventEnd - performance.timing.navigationStart;
+    if (!ms || ms <= 0) ms = performance.now();
+
+    const s = (ms / 1000).toFixed(2);
+    const good = ms < 1000;
+    trustLoad.textContent = `${s}s`;
+    trustLoad.classList.add('live');
+    chip.classList.add(good ? 'ready' : 'warn');
+    chip.innerHTML = `<span class="led"></span>${chip.dataset.loadedLabel || 'Loaded in'} <b>${s}s</b>`;
+
+    const raceLabel = document.getElementById('raceThisLabel');
+    const raceThis = document.getElementById('raceThisFill');
+    const raceWp = document.getElementById('raceWpFill');
+    if (raceLabel && raceThis && raceWp) {
+      const thisSeconds = ms / 1000;
+      raceLabel.textContent = `${thisSeconds.toFixed(2)}s`;
+      requestAnimationFrame(() => {
+        raceThis.style.width = `${Math.min((thisSeconds / WP_BENCHMARK_S) * 100, 100)}%`;
+        raceWp.style.width = '100%';
+      });
+    }
+  }
+
+  if (document.readyState === 'complete') reportLoadTime();
+  else window.addEventListener('load', () => setTimeout(reportLoadTime, 0));
+
+  async function loadPageSpeedBadge() {
+    const chip = document.getElementById('psiChip');
+    const trustPsi = document.getElementById('trustPsi');
+    if (!chip && !trustPsi) return;
+
+    try {
+      const api = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(SITE_URL)}&strategy=mobile&category=performance`;
+      const res = await fetch(api);
+      if (!res.ok) throw new Error('psi_unavailable');
+      const data = await res.json();
+      const score = Math.round(data.lighthouseResult.categories.performance.score * 100);
+      if (chip) {
+        chip.classList.add(score >= 90 ? 'ready' : 'warn');
+        chip.innerHTML = `<span class="led"></span>${chip.dataset.psiLabel || 'PageSpeed'}: <b>${score}/100</b>`;
+      }
+      if (trustPsi) trustPsi.textContent = `${score}/100`;
+    } catch {
+      if (chip) {
+        chip.classList.add('warn');
+        chip.innerHTML = `<span class="led"></span>${chip.dataset.psiFallback || 'PageSpeed when live'}`;
+      }
+      if (trustPsi) trustPsi.textContent = '—';
+    }
+  }
+  loadPageSpeedBadge();
+
+  (function loadWebVitals() {
+    if (!document.getElementById('cwvLcp')) return;
+    const s = document.createElement('script');
+    s.src = 'https://unpkg.com/web-vitals@4/dist/web-vitals.iife.js';
+    s.onload = () => {
+      const fmtMs = (v) => `${(v / 1000).toFixed(2)}s`;
+      const offline = document.body.dataset.cwvOffline || 'offline — reconnect to measure';
+      webVitals.onLCP((m) => {
+        const el = document.getElementById('cwvLcp');
+        if (!el) return;
+        el.textContent = fmtMs(m.value);
+        el.classList.remove('pending');
+        el.classList.add(m.value < 2500 ? 'good' : '');
+      });
+      webVitals.onCLS((m) => {
+        const el = document.getElementById('cwvCls');
+        if (!el) return;
+        el.textContent = m.value.toFixed(3);
+        el.classList.remove('pending');
+        el.classList.add(m.value < 0.1 ? 'good' : '');
+      });
+      webVitals.onINP((m) => {
+        const el = document.getElementById('cwvInp');
+        if (!el) return;
+        el.textContent = `${Math.round(m.value)}ms`;
+        el.classList.remove('pending');
+        el.classList.add(m.value < 200 ? 'good' : '');
+      });
+    };
+    s.onerror = () => {
+      ['cwvLcp', 'cwvCls', 'cwvInp'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = document.body.dataset.cwvOffline || 'offline';
+      });
+    };
+    document.head.appendChild(s);
+  })();
+
+  const stickyCta = document.getElementById('stickyCta');
+  if (stickyCta) {
+    window.addEventListener(
+      'scroll',
+      () => {
+        stickyCta.classList.toggle('visible', window.scrollY > window.innerHeight * 0.45);
+      },
+      { passive: true }
+    );
+  }
+
+  document.querySelectorAll('[data-lang-link]').forEach((a) => {
+    a.addEventListener('click', () => {
+      const lang = a.getAttribute('data-lang-link');
+      if (lang) document.cookie = `hit_lang=${lang}; Path=/; Max-Age=${60 * 60 * 24 * 365}`;
+    });
+  });
+
+  const CONSENT_KEY = 'hit_cookie_consent_v1';
+  const CONSENT_DEFAULT = { necessary: true, analytics: false, marketing: false };
 
   const I18N = {
     pl: {
@@ -128,14 +350,13 @@
       necessary: 'Niezbędne',
       necessaryDesc: 'Wymagane do działania strony (zawsze włączone).',
       analytics: 'Analityczne',
-      analyticsDesc: 'Pomagają zrozumieć, jak korzystasz ze strony (włączymy później, jeśli dodasz analitykę).',
+      analyticsDesc: 'Pomagają zrozumieć, jak korzystasz ze strony.',
       marketing: 'Marketingowe',
-      marketingDesc: 'Służą do pomiaru i reklam (np. Pixel — dodamy później).',
+      marketingDesc: 'Służą do pomiaru i reklam (np. Pixel).',
       save: 'Zapisz',
       close: 'Zamknij',
       policyPrivacy: 'Polityka prywatności',
       policyCookies: 'Polityka cookies',
-      manageLink: 'Zarządzaj cookies',
     },
     en: {
       title: 'Cookies',
@@ -147,14 +368,13 @@
       necessary: 'Necessary',
       necessaryDesc: 'Required for the site to work (always on).',
       analytics: 'Analytics',
-      analyticsDesc: 'Helps us understand usage (will be used later if analytics is added).',
+      analyticsDesc: 'Helps us understand usage.',
       marketing: 'Marketing',
-      marketingDesc: 'Used for measurement/ads (e.g. Pixel — can be added later).',
+      marketingDesc: 'Used for measurement/ads (e.g. Pixel).',
       save: 'Save',
       close: 'Close',
       policyPrivacy: 'Privacy policy',
       policyCookies: 'Cookie policy',
-      manageLink: 'Manage cookies',
     },
     ua: {
       title: 'Cookies',
@@ -166,14 +386,13 @@
       necessary: 'Необхідні',
       necessaryDesc: 'Потрібні для роботи сайту (завжди увімкнені).',
       analytics: 'Аналітика',
-      analyticsDesc: 'Допомагає зрозуміти використання (увімкнемо пізніше, якщо додамо аналітику).',
+      analyticsDesc: 'Допомагає зрозуміти використання.',
       marketing: 'Маркетинг',
-      marketingDesc: 'Для вимірювання та реклами (наприклад Pixel — додамо пізніше).',
+      marketingDesc: 'Для вимірювання та реклами (наприклад Pixel).',
       save: 'Зберегти',
       close: 'Закрити',
       policyPrivacy: 'Політика конфіденційності',
       policyCookies: 'Політика cookies',
-      manageLink: 'Керувати cookies',
     },
   };
 
@@ -181,8 +400,7 @@
     try {
       const raw = localStorage.getItem(CONSENT_KEY);
       if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      return { ...CONSENT_DEFAULT, ...parsed };
+      return { ...CONSENT_DEFAULT, ...JSON.parse(raw) };
     } catch {
       return null;
     }
@@ -201,8 +419,7 @@
 
   function ensureCookieUI() {
     if (document.getElementById('cookieBanner')) return;
-    const lang = getLang();
-    const t = I18N[lang] || I18N.en;
+    const t = I18N[getLang()] || I18N.en;
 
     const banner = document.createElement('div');
     banner.className = 'cookie-banner';
@@ -218,8 +435,7 @@
           <button class="cookie-btn" type="button" data-cookie-action="manage">${t.manage}</button>
           <button class="cookie-btn primary" type="button" data-cookie-action="accept">${t.acceptAll}</button>
         </div>
-      </div>
-    `;
+      </div>`;
 
     const backdrop = document.createElement('div');
     backdrop.className = 'cookie-backdrop';
@@ -232,7 +448,7 @@
       <div class="cookie-modal-head">
         <div>
           <h3>${t.modalTitle}</h3>
-          <div class="cookie-text" style="margin-top: .35rem;">
+          <div class="cookie-text" style="margin-top:.35rem;">
             <a href="./polityka-prywatnosci.html">${t.policyPrivacy}</a> ·
             <a href="./polityka-cookies.html">${t.policyCookies}</a>
           </div>
@@ -245,34 +461,27 @@
             <div class="cookie-option-title">${t.necessary}</div>
             <div class="cookie-option-desc">${t.necessaryDesc}</div>
           </div>
-          <div class="cookie-switch">
-            <input type="checkbox" checked disabled />
-          </div>
+          <div class="cookie-switch"><input type="checkbox" checked disabled /></div>
         </div>
         <div class="cookie-option">
           <div>
             <div class="cookie-option-title">${t.analytics}</div>
             <div class="cookie-option-desc">${t.analyticsDesc}</div>
           </div>
-          <label class="cookie-switch">
-            <input id="cookieAnalytics" type="checkbox" />
-          </label>
+          <label class="cookie-switch"><input id="cookieAnalytics" type="checkbox" /></label>
         </div>
         <div class="cookie-option">
           <div>
             <div class="cookie-option-title">${t.marketing}</div>
             <div class="cookie-option-desc">${t.marketingDesc}</div>
           </div>
-          <label class="cookie-switch">
-            <input id="cookieMarketing" type="checkbox" />
-          </label>
+          <label class="cookie-switch"><input id="cookieMarketing" type="checkbox" /></label>
         </div>
       </div>
       <div class="cookie-modal-actions">
         <button class="cookie-btn" type="button" data-cookie-action="reject">${t.reject}</button>
         <button class="cookie-btn primary" type="button" data-cookie-action="save">${t.save}</button>
-      </div>
-    `;
+      </div>`;
 
     document.body.appendChild(banner);
     document.body.appendChild(backdrop);
@@ -297,48 +506,45 @@
       banner.remove();
     }
 
-    function setAll(val) {
-      saveConsent({ analytics: val, marketing: val });
-      closeModal();
-      hideBanner();
-    }
-
-    function rejectAll() {
-      saveConsent({ analytics: false, marketing: false });
-      closeModal();
-      hideBanner();
-    }
-
-    function saveFromModal() {
-      const a = document.getElementById('cookieAnalytics');
-      const m = document.getElementById('cookieMarketing');
-      saveConsent({ analytics: !!(a && a.checked), marketing: !!(m && m.checked) });
-      closeModal();
-      hideBanner();
-    }
-
-    banner.querySelectorAll('[data-cookie-action]').forEach(btn => {
+    banner.querySelectorAll('[data-cookie-action]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const action = btn.getAttribute('data-cookie-action');
-        if (action === 'accept') setAll(true);
-        if (action === 'reject') rejectAll();
+        if (action === 'accept') {
+          saveConsent({ analytics: true, marketing: true });
+          closeModal();
+          hideBanner();
+        }
+        if (action === 'reject') {
+          saveConsent({ analytics: false, marketing: false });
+          closeModal();
+          hideBanner();
+        }
         if (action === 'manage') openModal();
       });
     });
 
-    modal.querySelectorAll('[data-cookie-action]').forEach(btn => {
+    modal.querySelectorAll('[data-cookie-action]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const action = btn.getAttribute('data-cookie-action');
-        if (action === 'reject') rejectAll();
-        if (action === 'save') saveFromModal();
+        if (action === 'reject') {
+          saveConsent({ analytics: false, marketing: false });
+          closeModal();
+          hideBanner();
+        }
+        if (action === 'save') {
+          const a = document.getElementById('cookieAnalytics');
+          const m = document.getElementById('cookieMarketing');
+          saveConsent({ analytics: !!(a && a.checked), marketing: !!(m && m.checked) });
+          closeModal();
+          hideBanner();
+        }
       });
     });
 
     modal.querySelector('.cookie-close')?.addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
 
-    // External link: open settings
-    document.querySelectorAll('[data-open-cookie-settings]').forEach(el => {
+    document.querySelectorAll('[data-open-cookie-settings]').forEach((el) => {
       el.addEventListener('click', (e) => {
         e.preventDefault();
         openModal();
@@ -346,101 +552,14 @@
     });
   }
 
-  // Show banner only if user has not decided yet.
-  if (!loadConsent()) {
-    ensureCookieUI();
-  } else {
-    // Still allow opening settings from footer links
-    document.querySelectorAll('[data-open-cookie-settings]').forEach(el => {
+  if (!loadConsent()) ensureCookieUI();
+  else {
+    document.querySelectorAll('[data-open-cookie-settings]').forEach((el) => {
       el.addEventListener('click', (e) => {
         e.preventDefault();
         ensureCookieUI();
-        document.querySelector('[data-cookie-action=\"manage\"]')?.dispatchEvent(new Event('click'));
+        document.querySelector('[data-cookie-action="manage"]')?.click();
       });
     });
   }
-
-  // FAQ
-  function toggleFaq(el) {
-    const item = el.parentElement;
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
-
-  // XP BAR
-  let xpTriggered = false;
-  function triggerXP() {
-    if (xpTriggered) return;
-    const xpBar = document.getElementById('xpBar');
-    if (!xpBar) return;
-    xpTriggered = true;
-    setTimeout(() => { xpBar.style.width = '72%'; }, 300);
-  }
-
-  // COUNTERS
-  let countersTriggered = false;
-  function triggerCounters() {
-    if (countersTriggered) return;
-    const countNums = document.querySelectorAll('.count-num');
-    if (!countNums.length) return;
-    countersTriggered = true;
-    countNums.forEach(el => {
-      const target = parseInt(el.dataset.target);
-      let current = 0;
-      const step = Math.ceil(target / 40);
-      const timer = setInterval(() => {
-        current = Math.min(current + step, target);
-        el.textContent = current;
-        if (current >= target) clearInterval(timer);
-      }, 30);
-    });
-  }
-
-  // EMAIL FORM
-  function handleSubmit() {
-    const email = document.getElementById('emailInput').value;
-    if (!email || !email.includes('@')) {
-      document.getElementById('emailInput').style.borderColor = 'var(--coral)';
-      return;
-    }
-    const btn = document.querySelector('.cta-submit');
-    btn.textContent = '✓ Gotowe! Odezwę się wkrótce';
-    btn.style.background = 'var(--ink)';
-    document.getElementById('emailInput').value = '';
-  }
-
-  // KEYBOARD NAV
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); scrollToSection(Math.min(currentSection + 1, sections.length - 1)); }
-    if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); scrollToSection(Math.max(currentSection - 1, 0)); }
-  });
-
-  // STICKY CTA BUTTON
-  const stickyCta = document.getElementById('stickyCta');
-  if (stickyCta) {
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const heroSection = sections[0];
-      const heroHeight = heroSection ? heroSection.offsetHeight : 0;
-      
-      // Show sticky button after scrolling past hero section
-      if (scrollTop > heroHeight * 0.5) {
-        stickyCta.classList.remove('hidden');
-      } else {
-        stickyCta.classList.add('hidden');
-      }
-    });
-
-    // Add hover effect to sticky button
-    stickyCta.addEventListener('mouseenter', () => {
-      if (!cursor || !ring) return;
-      cursor.classList.add('hovering');
-      ring.classList.add('hovering');
-    });
-    stickyCta.addEventListener('mouseleave', () => {
-      if (!cursor || !ring) return;
-      cursor.classList.remove('hovering');
-      ring.classList.remove('hovering');
-    });
-  }
+})();
